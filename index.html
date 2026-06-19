@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Playlist MP3</title>
+</head>
+<body>
+
+<h2 id="judul">Memuat...</h2>
+
+<audio id="player" controls></audio>
+
+<script>
+
+let playlist = [];
+let current = 0;
+
+const player = document.getElementById("player");
+const judul = document.getElementById("judul");
+
+function loadPlaylist(data){
+
+  console.log(data);
+
+  playlist = data;
+
+  if(playlist.length > 0){
+    playSong(0);
+  }
+}
+
+function playSong(index){
+
+  player.src = playlist[index].url;
+  judul.textContent = playlist[index].judul;
+}
+
+player.addEventListener("ended", () => {
+
+  current++;
+
+  if(current >= playlist.length){
+    current = 0;
+  }
+
+  playSong(current);
+  player.play();
+});
+
+</script>
+
+<script src="https://script.google.com/macros/s/AKfycbwrIolxSENyKC_dQvE-pf1sdk1XOAI-SnxczkcMUAUOs20-rAIFm8Jv_XFdAvw-r7c/exec?callback=loadPlaylist"></script>
+
+</body>
+</html>
